@@ -80,12 +80,7 @@ Edite `config.json` para:
 
 ## 🎨 Marcação Visual
 
-O sistema marca elementos interativos com:
-- 🟢 **Verde**: Campos de input
-- 🔵 **Azul**: Botões  
-- 🟠 **Laranja**: Links
-- 🟣 **Roxo**: Selects
-- **Números**: Indicam a ordem/ID dos elementos
+O sistema marca elementos interativos e que são relevantes para enviar ao modelo com o objetivo de se reduzir consumo de tokens no LLM.
 
 ## 🔧 Configuração de APIs
 
