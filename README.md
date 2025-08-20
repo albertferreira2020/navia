@@ -35,32 +35,14 @@ npx playwright install
 
 ```bash
 # Busca por notebook no Mercado Livre
-npm run mercado
+npm start
 
-# Abre Gmail e lê emails
-npm run gmail
-
-# Busca vídeo no YouTube
-npm run youtube
-
-# Busca produto na Amazon
-npm run amazon
-
-# Ver todos os cenários disponíveis
-npm run help
-```
 
 ### Comandos Personalizados
 
 ```bash
-# URL e comando personalizados
-node src/index.js custom "https://github.com" "Procure por 'machine learning' e clique no primeiro repositório"
-
-# Usar cenário específico
-node src/index.js mercado_livre_notebook
-
 # Comando direto
-node src/index.js custom "https://twitter.com" "Faça login e publique um tweet dizendo 'Hello World'"
+node src/index.js custom "Entre no mercado livre e faça uma busca por ar condicionado, ordene pelo menor preço e clique no primeiro resultado para abrir o produto"
 ```
 
 ## 📝 Exemplos de Comandos
