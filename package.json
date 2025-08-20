@@ -7,11 +7,6 @@
     "scripts": {
         "start": "node --no-deprecation src/index.js",
         "start:dev": "node --no-deprecation -r @babel/register src/index.js",
-        "help": "node help.js",
-        "mercado": "node --no-deprecation src/index.js mercado_livre_notebook",
-        "gmail": "node --no-deprecation src/index.js gmail_read",
-        "youtube": "node --no-deprecation src/index.js youtube_search",
-        "amazon": "node --no-deprecation src/index.js amazon_product",
         "lint": "eslint src",
         "lint:fix": "eslint src --fix",
         "format": "prettier --write \"src/**/*.js\"",
