@@ -20,11 +20,17 @@ const markElements = async (page) => {
             // Interactive elements
             "select", "button", 'input[type="submit"]', 'input[type="button"]', "a[href]",
             '[role="button"]', '[role="link"]', '[role="menuitem"]', '[role="tab"]', '[role="option"]',
+            // Product containers - divs that likely contain products
+            'div[class*="product"]', 'div[class*="item"]', 'div[class*="card"]',
+            'div[class*="listing"]', 'div[class*="result"]', 'div[class*="offer"]',
+            'div[data-testid*="product"]', 'div[data-testid*="item"]',
+            'article[class*="product"]', 'article[class*="item"]',
             // E-commerce specific
             ".product-item", ".product-card", ".search-box", ".btn", ".button",
             '[data-testid*="button"]', '[data-testid*="link"]', '[class*="button"]', '[class*="btn"]',
             // Mercado Livre specific
-            '.nav-search-input', '.ui-search-input', '.cb-search-input'
+            '.nav-search-input', '.ui-search-input', '.cb-search-input',
+            '.ui-search-result', '.ui-search-results__item'
         ];
 
         const isVisible = (el) => {
@@ -62,13 +68,37 @@ const markElements = async (page) => {
             const id = el.id?.toLowerCase() || "";
             const rect = el.getBoundingClientRect();
 
+            // Função para detectar se é um container de produto
+            const isProductContainer = () => {
+                const productIndicators = [
+                    "product", "item", "card", "listing", "result", "offer",
+                    "produto", "artigo", "anuncio"
+                ];
+
+                // Verifica se contém indicadores de produto na classe ou id
+                const hasProductClass = productIndicators.some(indicator =>
+                    className.includes(indicator) || id.includes(indicator)
+                );
+
+                // Verifica se tem características típicas de produto (preço, título, etc.)
+                const hasPrice = text.match(/r\$\s*\d+|€\s*\d+|\$\s*\d+/i);
+                const hasProductInfo = text.length > 20 && text.length < 500; // Tamanho típico de descrição
+
+                return hasProductClass || (hasPrice && hasProductInfo);
+            };
+
             const baseScores = {
                 input: type === "search" ? 25 :
                     (text.includes("buscar") || text.includes("search") ||
                         className.includes("search") || className.includes("busca") ||
                         id.includes("search") || id.includes("busca")) ? 20 :
                         ["text", "email"].includes(type) ? 10 : 8,
-                button: 12, select: 10, textarea: 8, a: 6
+                button: 12,
+                select: 10,
+                textarea: 8,
+                a: 6,
+                div: isProductContainer() ? 15 : 2,  // Pontuação maior para divs de produto
+                article: isProductContainer() ? 15 : 3
             };
 
             const keywords = [
@@ -78,6 +108,7 @@ const markElements = async (page) => {
                 "filtro", "filter", "ordenar", "sort", "organizar",
                 // Commerce keywords
                 "comprar", "buy", "carrinho", "cart", "produto", "product", "item", "preço", "price",
+                "oferta", "offer", "desconto", "discount", "promoção", "sale",
                 // Account keywords
                 "cadastrar", "login", "entrar", "register", "signup", "submit", "enviar",
                 // Navigation keywords
@@ -135,8 +166,12 @@ const markElements = async (page) => {
             .sort((a, b) => b.score - a.score)
             .slice(0, 30);
 
-        const colors = {
-            input: '#4CAF50', button: '#2196F3', a: '#FF9800', select: '#9C27B0', default: '#ff6b35'
+        // Função para gerar cores do arco-íris baseada no índice
+        const generateRainbowColor = (index, totalElements) => {
+            // Calcula a posição no espectro (0-360 graus)
+            const hue = (index / Math.max(totalElements - 1, 1)) * 360;
+            // Usa HSL para cores vivas e saturadas
+            return `hsl(${Math.round(hue)}, 70%, 50%)`;
         };
 
         return elements.map(({ element: el, data, score }, index) => {
@@ -147,7 +182,7 @@ const markElements = async (page) => {
             marker.className = 'browser-use-marker';
             marker.textContent = index.toString();
 
-            const color = colors[data.tag] || colors.default;
+            const color = generateRainbowColor(index, elements.length);
             marker.style.cssText = `
                 position: absolute !important;
                 top: -8px !important;
