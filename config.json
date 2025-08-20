@@ -1,0 +1,33 @@
+{
+    "scenarios": {
+        "mercado_livre_notebook": {
+            "url": "https://www.mercadolivre.com.br/",
+            "command": "Faça uma busca por 'notebook', ordene pelo menor preço e clique no primeiro resultado",
+            "description": "Busca por notebook no Mercado Livre"
+        },
+        "gmail_read": {
+            "url": "https://gmail.com",
+            "command": "Faça login e abra os primeiros 3 emails da caixa de entrada",
+            "description": "Lê emails no Gmail"
+        },
+        "youtube_search": {
+            "url": "https://youtube.com",
+            "command": "Procure por 'JavaScript tutorial' e clique no primeiro vídeo",
+            "description": "Busca e reproduz vídeo no YouTube"
+        },
+        "amazon_product": {
+            "url": "https://amazon.com.br",
+            "command": "Procure por 'livros de programação' e adicione o primeiro ao carrinho",
+            "description": "Busca produto na Amazon"
+        }
+    },
+    "settings": {
+        "maxSteps": 10,
+        "stepDelay": 2000,
+        "headless": false,
+        "viewport": {
+            "width": 1280,
+            "height": 720
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "browser-use-node",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Automação de navegador com IA usando Playwright e Node.js",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node --no-deprecation src/index.js",
+        "start:dev": "node --no-deprecation -r @babel/register src/index.js",
+        "help": "node help.js",
+        "mercado": "node --no-deprecation src/index.js mercado_livre_notebook",
+        "gmail": "node --no-deprecation src/index.js gmail_read",
+        "youtube": "node --no-deprecation src/index.js youtube_search",
+        "amazon": "node --no-deprecation src/index.js amazon_product",
+        "lint": "eslint src",
+        "lint:fix": "eslint src --fix",
+        "format": "prettier --write \"src/**/*.js\"",
+        "format:check": "prettier --check \"src/**/*.js\""
+    },
+    "dependencies": {
+        "dotenv": "^16.6.1",
+        "openai": "^4.104.0",
+        "playwright": "^1.54.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.28.3",
+        "@babel/preset-env": "^7.28.3",
+        "@babel/register": "^7.28.3",
+        "@eslint/js": "^9.33.0",
+        "eslint": "^9.33.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.4",
+        "prettier": "^3.6.2"
+    }
+}
