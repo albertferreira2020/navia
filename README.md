@@ -1,5 +1,7 @@
 # 🤖 NAVIA - Navegador Automático com IA
 
+![NAVIA Banner](./assets/banner.png)
+
 Sistema de automação de navegador que usa IA (Groq/OpenAI) para interpretar comandos em linguagem natural e executar ações automaticamente em páginas web.
 
 ## ✨ Características
